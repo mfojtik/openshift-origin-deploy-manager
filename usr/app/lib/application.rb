@@ -11,6 +11,7 @@ class DeploymentsApp < Sinatra::Base
       result[File.basename(f)] = JSON::parse(File.read(File.join(f, 'metadata.json')))
       result
     }
+    puts deployments.inspect
     erb :index, :locals => { :deployments => deployments }
   end
 
