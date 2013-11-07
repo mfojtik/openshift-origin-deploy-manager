@@ -11,8 +11,12 @@
     <![endif]-->
   </head>
   <body>
-    <h1><%=ENV['OPENSHIFT_APP_DNS']%></h1>
-    <%= yield%>
+    <div class="container">
+      <div class="page-header">
+        <h1><%=ENV['OPENSHIFT_APP_DNS']%></h1>
+      </div>
+      <%= yield%>
+    </div>
     <script src="<%=url '/deployments/js/jquery-2.0.3.min.js'%>"></script>
     <script src="<%=url '/deployments/js/bootstrap.min.js'%>"></script>
   </body>
