@@ -4,8 +4,8 @@
       <% deployments.each do |timestamp, data| %>
         <% data.merge!(commit(data['git_sha1'])) %>
         <a href="#" class="list-group-item">
-          <h4 class="list-group-item-heading">From: <%=data['author']%></h4>
-          <p class="list-group-item-text"><%=data['message']%></p>
+          <h4 class="list-group-item-heading">From: <%=h data['author']%></h4>
+          <p class="list-group-item-text"><%=h data['message']%></p>
         </a>
       <% end %>
     </div>

@@ -15,6 +15,10 @@ module DeploymentsHelper
     end
   end
 
+  def h(text)
+    Rack::Utils.escape_html(text)
+  end
+
   private
 
   def parse_git_commit(commit)
