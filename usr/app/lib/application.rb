@@ -8,6 +8,8 @@ class DeploymentsApp < Sinatra::Base
   get '/' do
     deployments = Dir.glob(ENV['OPENSHIFT_DEPLOYMENTS_DIR'] + '/*').inject({}) { |result, f|
       next unless File.exists?(File.join(f, 'metadata.json'))
+      puts "==> #{f}"
+      puts "==> #{result.inspect}"
       result[File.basename(f)] = JSON::parse(File.read(File.join(f, 'metadata.json')))
       result
     }
