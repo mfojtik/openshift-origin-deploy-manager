@@ -1,0 +1,37 @@
+---
+Name: deploymanager
+Cartridge-Short-Name: DEPLOYMANAGER
+Architecture: noarch
+Display-Name: Deployment Manager
+Description: OpenShift gear deployments management
+Version: '0.1'
+Cartridge-Version: 0.0.1
+Cartridge-Vendor: mfojtik
+License: ASL 2.0
+Vendor: mfojtik
+Categories:
+- service
+- embedded
+Website: http://github.com/mfojtik/openshift-origin-deploy-manager
+Scaling:
+  Min: 1
+  Max: -1
+Provides:
+- deploymanager
+Group-Overrides:
+- components:
+  - web_framework
+  - deploymanager
+Endpoints:
+- Private-IP-Name: HTTP_IP
+  Private-Port-Name: WEB_PORT
+  Private-Port: 8080
+  Public-Port-Name: WEB_PROXY_PORT
+  Protocols:
+  - http
+  - ws
+  Mappings:
+  - Frontend: '/deployments'
+    Backend: '/'
+
+Source-Url: https://github.com/mfojtik/openshift-origin-deploy-manager.git

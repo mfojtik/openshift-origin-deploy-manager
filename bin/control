@@ -1,0 +1,56 @@
+#!/bin/bash -e
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+APP_NAME="Deployment Manager"
+
+export DEPLOYMANAGER_APP_DIR=${OPENSHIFT_DEPLOYMANAGER_DIR}usr/app
+export DEPLOYMANAGER_APP=${DEPLOYMANAGER_APP_DIR}/config.ru
+export DEPLOYMANAGER_PUMA_CONFIG=${OPENSHIFT_DEPLOYMANAGER_DIR}usr/conf/puma.conf
+
+function ruby19_context() {
+  GEM_HOME="${OPENSHIFT_DEPLOYMANAGER_DIR}gems" PATH="${PATH}:${GEM_HOME}/bin" scl enable ruby193 "$@"
+}
+
+function start() {
+  echo "Starting $APP_NAME"
+  ruby19_context "puma --dir ${DEPLOYMANAGER_APP_DIR} -C ${DEPLOYMANAGER_PUMA_CONFIG} \
+    ${DEPLOYMANAGER_APP}" &> ${OPENSHIFT_DEPLOYMANAGER_DIR}log/puma.log
+  echo "$APP_NAME is now available at http://${OPENSHIFT_APP_DNS}/deployments"
+}
+
+function stop() {
+  echo "Stopping $APP_NAME"
+  ruby19_context "pumactl --state ${OPENSHIFT_DEPLOYMANAGER_DIR}run/puma.state stop"
+}
+
+function restart() {
+  echo "Restarting $APP_NAME"
+  ruby19_context "pumactl --state ${OPENSHIFT_DEPLOYMANAGER_DIR}run/puma.state restart"
+}
+
+function isrunning() {
+  ruby19_context "pumactl --state ${OPENSHIFT_DEPLOYMANAGER_DIR}run/puma.state status"
+}
+
+case "$1" in
+    start)
+        start
+    ;;
+    stop)
+        stop
+    ;;
+    restart)
+        stop
+        start
+    ;;
+    status)
+        if isrunning
+        then
+            client_result "$APP_NAME is running"
+        else
+            client_result "$APP_NAME is stopped"
+        fi
+        exit 0
+    ;;
+esac

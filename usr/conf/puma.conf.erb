@@ -1,0 +1,6 @@
+environment 'production'
+pidfile "<%=ENV['OPENSHIFT_DEPLOYMANAGER_DIR']%>run/puma.pid"
+state_path "<%=ENV['OPENSHIFT_DEPLOYMANAGER_DIR']%>run/puma.state"
+stdout_redirect "<%=ENV['OPENSHIFT_DEPLOYMANAGER_DIR']%>log/puma_stdout.log", "<%=ENV['OPENSHIFT_DEPLOYMANAGER_DIR']%>log/puma_stderr.log"
+bind "tcp://<%=ENV['OPENSHIFT_DEPLOYMANAGER_HTTP_IP']%>:<%=ENV['OPENSHIFT_DEPLOYMANAGER_WEB_PORT']%>"
+daemonize

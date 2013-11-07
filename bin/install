@@ -1,0 +1,16 @@
+#!/bin/bash -e
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+mkdir -p ${OPENSHIFT_HAMONITOR_DIR}data
+mkdir -p ${OPENSHIFT_HAMONITOR_DIR}gems
+
+echo "Installing Puma web server..."
+
+scl enable ruby193 "GEM_HOME='${OPENSHIFT_HAMONITOR_DIR}gems' gem install puma --no-ri --no-rdoc --quiet"
+scl enable ruby193 "GEM_HOME='${OPENSHIFT_HAMONITOR_DIR}gems' gem install sinatra --no-ri --no-rdoc --quiet"
+
+client_result "Deployment Manager installed succesfully!"
+client_result "You can now access it at: http://${OPENSHIFT_APP_DNS}/deployments"
+client_result
+client_result "Please use your OpenShift account credentials for authentication."
