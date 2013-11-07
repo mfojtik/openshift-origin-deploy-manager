@@ -3,7 +3,7 @@ module DeploymentsHelper
   def deployments
     Dir.glob(ENV['OPENSHIFT_DEPLOYMENTS_DIR'] + '*').reject { |f|
       File.basename(f) !~ /^(\d{4})\-/ || !File.exists?(File.join(f, 'metadata.json'))
-    }.inject({}) { |result, f|
+    }.sort.inject({}) { |result, f|
       result[File.basename(f)] = JSON::parse(File.read(File.join(f, 'metadata.json')))
       result
     }
