@@ -24,7 +24,7 @@ module DeploymentsHelper
   def parse_git_commit(commit)
     data = commit.split("\n")
     {
-      'author' => data[1].split(" ")[1],
+      'author' => data[1].split(" ", 2)[1],
       'message' => data[3..-1].map { |m| m.strip }.join("\n")
     }
   end
