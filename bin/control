@@ -12,6 +12,10 @@ function ruby19_context() {
   GEM_HOME="${OPENSHIFT_DEPLOYMANAGER_DIR}gems" PATH="${PATH}:${GEM_HOME}/bin" scl enable ruby193 "$@"
 }
 
+function puma_ctl() {
+  ruby19_context "pumactl --state ${OPENSHIFT_DEPLOYMANAGER_DIR}run/puma.state $1" > /dev/null
+}
+
 function start() {
   echo "Starting $APP_NAME"
   ruby19_context "puma --dir ${DEPLOYMANAGER_APP_DIR} -C ${DEPLOYMANAGER_PUMA_CONFIG} \
@@ -21,16 +25,16 @@ function start() {
 
 function stop() {
   echo "Stopping $APP_NAME"
-  ruby19_context "pumactl --state ${OPENSHIFT_DEPLOYMANAGER_DIR}run/puma.state stop"
+  puma_ctl "stop"
 }
 
 function restart() {
   echo "Restarting $APP_NAME"
-  ruby19_context "pumactl --state ${OPENSHIFT_DEPLOYMANAGER_DIR}run/puma.state restart"
+  puma_ctl "restart"
 }
 
 function isrunning() {
-  ruby19_context "pumactl --state ${OPENSHIFT_DEPLOYMANAGER_DIR}run/puma.state status"
+  puma_ctl "status"
 }
 
 case "$1" in
