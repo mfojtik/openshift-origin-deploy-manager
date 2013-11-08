@@ -11,7 +11,8 @@
     <div class="list-group">
       <% deployments['data'].sort_by { |d| d['created_at'] }.reverse.each do |d| %>
         <% commit_data = commit(d['sha1']) %>
-        <div class="list-group-item clearfix">
+        <%=current_deployment%>
+        <div class="list-group-item clearfix <%='active' if current_deployment == d['id']%>">
           <span class="pull-left gravatar">
             <img src="http://www.gravatar.com/avatar.php?gravatar_id=<%=commit_data['author_digest']%>" height="36"/>
           </span>

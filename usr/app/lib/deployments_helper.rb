@@ -8,6 +8,14 @@ module DeploymentsHelper
     end
   end
 
+  def current_deployment
+    @current_deployment ||= Dir.chdir(ENV['OPENSHIFT_DEPLOYMENTS_DIR']) do
+      curr_ts = File.readlink('current') if File.exists?('current')
+      result = Dir.glob('by-id/*').find { |f| File.readlink(f) == "../#{curr_ts}"}
+      result.gsub(/^by\-id\//, '') if result
+    end
+  end
+
   def h(text)
     Rack::Utils.escape_html(text)
   end
