@@ -1,5 +1,3 @@
-img.gravatar {
-  float: left;
-  margin-left: -44px;
+.gravatar img {
   border-radius: 4px;
 }
