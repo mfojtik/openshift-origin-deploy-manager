@@ -36,7 +36,7 @@ module BrokerHelper
   private
 
   def prevent_restart(&block)
-    lock_file = File.join(ENV['OPENSHIFT_DEPLOYMANAGER_DIR/'], 'data', '.prevent_restart')
+    lock_file = File.join(ENV['OPENSHIFT_DEPLOYMANAGER_DIR'], 'data', '.prevent_restart')
     File.write(lock_file, '')
     begin
       yield
