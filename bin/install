@@ -11,6 +11,6 @@ scl enable ruby193 "GEM_HOME='${OPENSHIFT_DEPLOYMANAGER_DIR}gems' gem install pu
 scl enable ruby193 "GEM_HOME='${OPENSHIFT_DEPLOYMANAGER_DIR}gems' gem install sinatra --no-ri --no-rdoc --quiet"
 
 client_result "Deployment Manager installed succesfully!"
-client_result "You can now access it at: http://${OPENSHIFT_APP_DNS}/deployments"
+client_result "You can now access it at: https://${OPENSHIFT_APP_DNS}/deployments"
 client_result
 client_result "Please use your OpenShift account credentials for authentication."

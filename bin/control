@@ -23,7 +23,7 @@ function start() {
     echo "Starting $APP_NAME"
     ruby19_context "puma --dir ${DEPLOYMANAGER_APP_DIR} -C ${DEPLOYMANAGER_PUMA_CONFIG} \
       ${DEPLOYMANAGER_APP}" &> ${OPENSHIFT_DEPLOYMANAGER_DIR}log/puma.log
-    echo "$APP_NAME is now available at http://${OPENSHIFT_APP_DNS}/deployments"
+    echo "$APP_NAME is now available at https://${OPENSHIFT_APP_DNS}/deployments"
   fi
 }
 
