@@ -1,10 +1,11 @@
 module BrokerHelper
 
   def broker
+    user, password = Rack::Auth::Basic::Request.new(request.env).credentials
     RestClient::Resource.new(
       "https://#{ENV["OPENSHIFT_BROKER_HOST"]}/broker/rest",
+      user, password,
       :headers => {
-        :http_authorization => request.env['HTTP_AUTHORIZATION'],
         :accept => 'application/json'
       }
     )
