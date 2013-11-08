@@ -14,4 +14,8 @@ class DeploymentsApp < Sinatra::Base
     erb :index
   end
 
+  post '/:id/activate' do
+    activate_deployment(params[:id])
+  end
+
 end
