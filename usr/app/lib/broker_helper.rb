@@ -5,9 +5,6 @@ module BrokerHelper
     RestClient::Resource.new(
       "https://#{ENV["OPENSHIFT_BROKER_HOST"]}/broker/rest",
       user, password,
-      :headers => {
-        :accept => 'application/json'
-      }
     )
   end
 
