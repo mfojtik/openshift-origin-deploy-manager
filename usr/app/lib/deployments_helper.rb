@@ -29,7 +29,7 @@ module DeploymentsHelper
       'author' => data[1].split(" ", 2)[1],
       'message' => data[3..-1].map { |m| m.strip }.join("\n")
     }
-    result['author_id'] = Digest::MD5::hexdigest(parse_email_from(result['author']))
+    result['author_digest'] = Digest::MD5::hexdigest(parse_email_from(result['author']))
     result
   end
 
