@@ -25,8 +25,9 @@ module BrokerHelper
       'event' => 'activate',
       'deployment_id' => deployment_id
     }
-    puts application['data']['links']['ACTIVATE']['href']
-    broker[application['data']['links']['ACTIVATE']['href']].post(JSON::dump(activate_json), http_headers)
+    activate_href = application['data']['links']['ACTIVATE']['href']
+    activate_href.gsub!(/^http.*\/broker\/rest/, '')
+    broker[activate_href].post(JSON::dump(activate_json), http_headers)
   end
 
   private
