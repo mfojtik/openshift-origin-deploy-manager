@@ -1,5 +1,7 @@
 module DeploymentsHelper
 
+  require 'digest/md5'
+
   def deployments
     Dir.glob(ENV['OPENSHIFT_DEPLOYMENTS_DIR'] + '*').reject { |f|
       File.basename(f) !~ /^(\d{4})\-/ || !File.exists?(File.join(f, 'metadata.json'))
@@ -27,6 +29,11 @@ module DeploymentsHelper
       'author' => data[1].split(" ", 2)[1],
       'message' => data[3..-1].map { |m| m.strip }.join("\n")
     }
+    data['author_id'] = Digest::MD5::hexdigest(parse_email_from(data['author']))
+  end
+
+  def parse_email_from(author)
+    author.scan(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i).first
   end
 
 end

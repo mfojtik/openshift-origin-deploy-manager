@@ -4,6 +4,9 @@
       <% deployments.each do |timestamp, data| %>
         <% data.merge!(commit(data['git_sha1'])) %>
         <a href="#" class="list-group-item">
+          <a class="pull-left" href="#">
+            <img src="http://www.gravatar.com/avatar.php?gravatar_id=<%=data['author_digest']%>"/>
+          </a>
           <h4 class="list-group-item-heading">
             <code><%= data['git_sha1']%></code> <%=h data['author']%>
           </h4>
