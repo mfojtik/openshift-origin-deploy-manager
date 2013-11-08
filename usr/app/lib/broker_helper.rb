@@ -10,7 +10,7 @@ module BrokerHelper
 
   def broker_application
     @broker_app ||= JSON::parse(
-      broker["/domains/#{ENV['OPENSHIFT_NAMESPACE']}/applications/#{ENV['OPENSHIFT_APP_NAME=']}"].get(http_headers)
+      broker["/domains/#{ENV['OPENSHIFT_NAMESPACE']}/applications/#{ENV['OPENSHIFT_APP_NAME']}"].get(http_headers)
     )
   end
 
