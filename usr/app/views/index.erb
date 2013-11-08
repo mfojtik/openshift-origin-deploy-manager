@@ -1,4 +1,5 @@
 <div class="row notifications">
+  <% puts broker_application.inspect %>
   <% if broker_application['data']['keep_deployments'].to_i > 1 %>
     <div class="alert alert-warning">
       Your application configuration enables just one deployments at the time. You can increase the number
