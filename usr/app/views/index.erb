@@ -30,7 +30,7 @@
             <%=h commit_data['message']%>
           </h4>
           <p class="list-group-item-text commit-author">
-            <span class="author"><%=h commit_data['author']%></span> pushed this deployment <%=d['created_at']%>
+          <span class="author"><%=h commit_data['author']%></span> pushed this deployment <time pubdate='pubdate'><%=DateTime.parse(d['created_at'])%></time>
           </p>
         </div>
       <% end %>

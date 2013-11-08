@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'json'
 require_relative './deployments_helper'
 require_relative './broker_helper'
+require 'time'
 
 class DeploymentsApp < Sinatra::Base
 
