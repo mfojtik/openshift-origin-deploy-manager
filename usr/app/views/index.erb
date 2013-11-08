@@ -7,13 +7,7 @@
           <span class="pull-left gravatar">
             <img src="http://www.gravatar.com/avatar.php?gravatar_id=<%=data['author_digest']%>" height="36"/>
           </span>
-          <h4 class="list-group-item-heading">
-            <code><%= data['git_sha1']%></code> <%=h data['message']%>
-          </h4>
-          <p class="list-group-item-text">
-            <b><%=h data['author']%></b> pushed this deployment <%=timestamp%>
-          </p>
-          <div class="btn-group pull-right">
+          <span class="btn-group pull-right">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
               <code><%=h data['git_sha1']%></code> <span class="caret"></span>
             </button>
@@ -24,7 +18,14 @@
               <li class="divider"></li>
               <li><a href="#">Separated link</a></li>
             </ul>
-          </div>
+          </span>
+          <h4 class="list-group-item-heading">
+            <%=h data['message']%>
+          </h4>
+          <p class="list-group-item-text">
+            <small><b><%=h data['author']%></b> pushed this deployment <%=timestamp%></small>
+          </p>
+
         </div>
       <% end %>
     </div>
