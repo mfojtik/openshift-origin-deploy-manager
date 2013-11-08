@@ -1,5 +1,5 @@
 <div class="row notifications">
-  <% if application['data']['keep_deployments'].to_i > 1 %>
+  <% if application['data']['keep_deployments'].to_i == 1 %>
     <div class="alert alert-warning">
       Your application configuration currently enable just one deployments at the time. You can increase the number
       of deployments to keep by using: <code>$ rhc configure-app --keep-deployments 10 --app <%=ENV['OPENSHIFT_APP_NAME']%></code>.
@@ -9,7 +9,7 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="list-group">
-      <% deployments['data'].each do |d| %>
+      <% deployments['data'].sort_by { |d| d['created_at'] }.reverse.each do |d| %>
         <% commit_data = commit(d['sha1']) %>
         <div class="list-group-item clearfix">
           <span class="pull-left gravatar">
