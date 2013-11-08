@@ -9,7 +9,18 @@ module BrokerHelper
   end
 
   def broker_application
-    @broker_app ||= JSON::parse(broker["/domains/#{ENV['OPENSHIFT_NAMESPACE']}/applications/#{ENV['OPENSHIFT_APP_NAME=']}"].get)
+    @broker_app ||= JSON::parse(
+      broker["/domains/#{ENV['OPENSHIFT_NAMESPACE']}/applications/#{ENV['OPENSHIFT_APP_NAME=']}"].get(http_headers)
+    )
+  end
+
+  private
+
+  def http_headers
+    {
+      :content_type => 'application/json',
+      :accept => 'application/json'
+    }
   end
 
 end
