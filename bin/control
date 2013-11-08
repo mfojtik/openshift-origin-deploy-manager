@@ -17,15 +17,23 @@ function puma_ctl() {
 }
 
 function start() {
-  echo "Starting $APP_NAME"
-  ruby19_context "puma --dir ${DEPLOYMANAGER_APP_DIR} -C ${DEPLOYMANAGER_PUMA_CONFIG} \
-    ${DEPLOYMANAGER_APP}" &> ${OPENSHIFT_DEPLOYMANAGER_DIR}log/puma.log
-  echo "$APP_NAME is now available at http://${OPENSHIFT_APP_DNS}/deployments"
+  if [ -f "${OPENSHIFT_DEPLOYMANAGER_DIR}data/.prevent_restart" ]; then
+    echo "${APP_NAME}: Activation in progress, skipping restart"
+  else
+    echo "Starting $APP_NAME"
+    ruby19_context "puma --dir ${DEPLOYMANAGER_APP_DIR} -C ${DEPLOYMANAGER_PUMA_CONFIG} \
+      ${DEPLOYMANAGER_APP}" &> ${OPENSHIFT_DEPLOYMANAGER_DIR}log/puma.log
+    echo "$APP_NAME is now available at http://${OPENSHIFT_APP_DNS}/deployments"
+  fi
 }
 
 function stop() {
-  echo "Stopping $APP_NAME"
-  puma_ctl "stop"
+  if [ -f "${OPENSHIFT_DEPLOYMANAGER_DIR}data/.prevent_restart" ]; then
+    echo "${APP_NAME}: Activation in progress, skipping restart"
+  else
+    echo "Stopping $APP_NAME"
+    puma_ctl "stop"
+  fi
 }
 
 function restart() {
