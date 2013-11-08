@@ -12,28 +12,30 @@
       <% commit_data = commit(d['sha1']) %>
     <div class="panel clearfix <%=(current_deployment == d['id']) ? 'panel-primary' : 'panel-default'%>">
       <div class="panel-heading">
-        <%=d['id']%>
+        <span class="pull-left gravatar">
+          <img src="http://www.gravatar.com/avatar.php?gravatar_id=<%=commit_data['author_digest']%>" height="36"/>
+        </span>
+        <b><%=d['id']%></b>
       </div>
-      <span class="pull-left gravatar">
-        <img src="http://www.gravatar.com/avatar.php?gravatar_id=<%=commit_data['author_digest']%>" height="36"/>
-      </span>
-      <span class="btn-group pull-right">
-        <button type="button" class="btn btn-default dropdown-toggle commit-btn" data-toggle="dropdown">
-          <code><%=h d['sha1']%></code> <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li><a href="#">Activate</a></li>
-          <li><a href="#">Show code</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Remove</a></li>
-        </ul>
-      </span>
-      <h4 class="list-group-item-heading">
-        <%=h commit_data['message']%>
-      </h4>
-      <p class="list-group-item-text commit-author">
-      <span class="author"><%=h commit_data['author']%></span> pushed this deployment <time pubdate='pubdate'><%=DateTime.parse(d['created_at'])%></time>
-      </p>
+      <div class="panel-body">
+        <span class="btn-group pull-right">
+          <button type="button" class="btn btn-default dropdown-toggle commit-btn" data-toggle="dropdown">
+            <code><%=h d['sha1']%></code> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Activate</a></li>
+            <li><a href="#">Show code</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Remove</a></li>
+          </ul>
+        </span>
+        <h4 class="list-group-item-heading">
+          <%=h commit_data['message']%>
+        </h4>
+        <p class="list-group-item-text commit-author">
+        <span class="author"><%=h commit_data['author']%></span> pushed this deployment <time pubdate='pubdate'><%=DateTime.parse(d['created_at'])%></time>
+        </p>
+      </div>
     </div>
   <% end %>
   </div>
