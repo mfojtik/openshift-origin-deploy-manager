@@ -19,6 +19,7 @@
         <b><%=d['id']%></b>
       </div>
       <div class="panel-body">
+        <% unless d['sha1'].empty? %>
         <span class="btn-group pull-right">
           <button type="button" class="btn btn-default dropdown-toggle commit-btn" data-toggle="dropdown">
             <code><%=h d['sha1']%></code> <span class="caret"></span>
@@ -30,6 +31,7 @@
             <li><a href="#">Remove</a></li>
           </ul>
         </span>
+        <% end %>
         <h4 class="list-group-item-heading">
           <%=h commit_data['message']%>
         </h4>
